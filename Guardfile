@@ -59,11 +59,11 @@ guard :rspec, cmd: "rspec" do
 
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
-  watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
+  watch(rails.routes)          { "spec" } # { "#{rspec.spec_dir}/routing" }
   watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
 
   # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
+  watch(rails.view_dirs)      { "spec/features" } #{ |m| rspec.spec.("features/#{m[1]}") }
   watch(rails.layouts)       { |m| rspec.spec.("features/#{m[1]}") }
 
   # Turnip features and steps
