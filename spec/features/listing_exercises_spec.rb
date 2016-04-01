@@ -1,0 +1,27 @@
+require "rails_helper"
+
+RSpec.feature "Listing Exercises" do
+  
+  before do
+    @john = User.create(email: "john@example.com", password: "password")
+    login_as(@john, :scope => :user)
+
+    date_1 = 1.day.ago.strftime("%Y-%m-%d")
+    date_2 = 2.day.ago.strftime("%Y-%m-%d")
+    @e1 = @john.exercises.create(duration_in_min: 20, workout: "Body building routine", workout_date: date_1)
+    @e2 = @john.exercises.create(duration_in_min: 20, workout: "Cardio", workout_date: date_2)
+  end
+
+  scenario "Shows users's workout for last 7 days" do
+    visit "/"
+
+    click_link "My Lounge"
+    expect(page).to have_content(@e1.duration_in_min)
+    expect(page).to have_content(@e1.workout)
+    expect(page).to have_content(@e1.workout_date)
+    expect(page).to have_content(@e2.duration_in_min)
+    expect(page).to have_content(@e2.workout)
+    expect(page).to have_content(@e2.workout_date)
+  end
+
+end
