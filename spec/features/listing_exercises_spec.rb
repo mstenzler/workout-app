@@ -3,7 +3,10 @@ require "rails_helper"
 RSpec.feature "Listing Exercises" do
   
   before do
-    @john = User.create(email: "john@example.com", password: "password")
+    @john = User.create(first_name: "John",
+      last_name: "Doe",
+      email: "john@example.com", 
+      password: "password")
     login_as(@john, :scope => :user)
 
     date_1 = 1.day.ago.strftime("%Y-%m-%d")
